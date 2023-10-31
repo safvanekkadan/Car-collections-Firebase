@@ -2,16 +2,23 @@ import 'package:flutter/cupertino.dart';
 
 class textfiled extends StatelessWidget {
   final String labeltext;
+  final TextEditingController controller;
   const textfiled({
     super.key,
-    required this.labeltext
+    required this.labeltext,
+    required this.controller
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: CupertinoTextField(placeholder:labeltext,
+      padding: const EdgeInsets.all(10.0),
+      child: CupertinoTextField(
+        
+        clearButtonMode: OverlayVisibilityMode.editing,
+        controller: controller,
+        placeholder:labeltext,
+        padding: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
            color: CupertinoColors.white,
            borderRadius: BorderRadius.circular(8.0),

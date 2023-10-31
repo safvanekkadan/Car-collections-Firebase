@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 import '../widgets/textfield.dart';
 
-class AddUser extends StatefulWidget {
-  const AddUser({super.key});
+class UpdateUser extends StatefulWidget {
+  const UpdateUser({super.key});
 
   @override
-  State<AddUser> createState() => _AddUserState();
+  State<UpdateUser> createState() => _AddUserState();
   
 }
 
-class _AddUserState extends State<AddUser> {
+class _AddUserState extends State<UpdateUser> {
   
   List<String> items = [
   "Abarth","Alfa Romeo","Aston Martin","Audi","Bentley","BMW","Bugatti","Cadillac","Chevrolet",
@@ -31,20 +31,26 @@ class _AddUserState extends State<AddUser> {
   TextEditingController CarModel =TextEditingController();
   TextEditingController CarSpec =TextEditingController(); 
 
-  void addCar(){
-    final data ={
-      'carbrand':items[selectedValue],
-      'carname':CarName.text,
-      'carmodel':CarModel.text,
-      'carspecification':CarSpec.text
-    };
-    car.add(data);
-  }
+ updatedatas(carId){
+  final data ={
+    'carname':CarName.text,
+    'carmodel':CarModel.text,
+    'carspecification':CarSpec.text,
+    'carbrand':items[selectedValue],
+  };
+  car.doc(carId).update(data).then((value) => Navigator.pop(context));
+ }
   @override
   Widget build(BuildContext context) {
+  final args= ModalRoute.of(context)!.settings.arguments as Map;
+  CarName.text =args['carname'];
+  items[selectedValue]= args['carbrand'];
+  CarModel.text =args['carmodel'];
+  CarSpec.text= args['carspecification'];
+  final carId =args['id'];
     return Scaffold(
        appBar: AppBar(centerTitle: true,
-        title:const Text("Add Car",
+        title:const Text("Update Car Datas",
         style: TextStyle(
            fontSize: 25,
           color: Colors.black,
@@ -52,7 +58,7 @@ class _AddUserState extends State<AddUser> {
           letterSpacing: 2,
          
         ),),
-        backgroundColor: Colors.transparent,
+      backgroundColor: Colors.transparent,
       ),
       body: SafeArea(
         child: Column(
@@ -60,6 +66,7 @@ class _AddUserState extends State<AddUser> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: CupertinoTextFormFieldRow(
+                
                 prefix:const Text("Select Car Brand"),
                 placeholder:items[selectedValue],
                   decoration: BoxDecoration(             
@@ -100,10 +107,11 @@ class _AddUserState extends State<AddUser> {
               CupertinoButton(
             onPressed: ()
             {
-              addCar();
+             print(args);
+             updatedatas(carId);
               Navigator.pop(context);
             },
-            child: Text("Submit"),
+            child: Text("Update"),
             color: CupertinoColors.black,
             padding: EdgeInsets.all(10),
             disabledColor: Colors.grey,
