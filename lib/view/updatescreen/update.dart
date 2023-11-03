@@ -77,10 +77,10 @@ class UpdateUser extends StatelessWidget {
               CupertinoButton(
             onPressed: ()
             {
-             carprovider.CarBrand.clear();
-             carprovider.CarName.clear();
-             carprovider.Carmodel.clear();
-             carprovider.CarSpec.clear();
+             carprovider.CarBrand;
+             carprovider.CarName;
+             carprovider.Carmodel;
+             carprovider.CarSpec;
              carprovider.updatedatas(carId);
               Navigator.pop(context);
             },

@@ -1,5 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_wk1/constants/string/string.dart';
 import 'package:firebase_wk1/model/cars_model.dart';
 import 'package:firebase_wk1/services/firebase/service.dart';
@@ -47,13 +48,20 @@ final FirebaseServices  firebaseservice = FirebaseServices();
   }
 
   void updatedatas(String carId)async{
-    final car=CarModel(
-      id: carId, 
-      carname: CarName.text, 
-      carbrand: CarBrand.text, 
-      carmodel: Carmodel.text, 
-      carspecification: CarSpec.text);
-      firebaseservice.updatedatas(car);
+  FirebaseFirestore.instance.collection('car').doc(carId).update({
+    'id': carId, 
+      'carname': CarName.text, 
+      'carbrand': items[selectedValue], 
+      'carmodel': Carmodel.text, 
+      'carspecification': CarSpec.text
+  });
+    // final car=CarModel(
+      // id: carId, 
+      // carname: CarName.text, 
+      // carbrand: CarBrand.text, 
+      // carmodel: Carmodel.text, 
+      // carspecification: CarSpec.text);
+      //firebaseservice.updatedatas(car);
       await fetchCars();
       notifyListeners();
   }
