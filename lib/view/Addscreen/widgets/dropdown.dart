@@ -7,21 +7,23 @@ import '../../../constants/string/string.dart';
 class carbrandselectvalues extends StatelessWidget {
   carbrandselectvalues({
     super.key,
-    required this.carsProvider,
+    required this.carprovider,
+
+    
   });
-  final  CarsProvider carsProvider;
+  final  CarsProvider carprovider;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoTextFormFieldRow(
       prefix:const Text("Select Car Brand"),
-      placeholder:items[carsProvider.selectedValue],
+      placeholder:items[carprovider.selectedValue],
         decoration: BoxDecoration(             
           border: Border.all(color: Colors.grey),
           borderRadius: BorderRadius.circular(8.0),
         ),
         readOnly: true,
-        controller: TextEditingController(text: items[carsProvider.selectedValue]),
+        controller: TextEditingController(text: items[carprovider.selectedValue]),
         onTap: () {
           showCupertinoModalPopup(
             context: context,
@@ -30,9 +32,10 @@ class carbrandselectvalues extends StatelessWidget {
                 height: 200,
                 child: CupertinoPicker(
                   itemExtent: 40,
+                  scrollController: FixedExtentScrollController(initialItem: carprovider.selectedValue),
                   onSelectedItemChanged: (int index) {
                     
-                     carsProvider. selectedValue = index;
+                     carprovider. selectedValue = index;
 
                   },
                   children: items.map((String item) {

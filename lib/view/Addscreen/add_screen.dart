@@ -2,9 +2,9 @@ import 'package:firebase_wk1/controller/cars_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../widgets/textfield.dart';
-import 'widgets/add_screen.dart';
+import 'widgets/dropdown.dart';
+
 
 class AddCars extends StatelessWidget {
   const AddCars({super.key});
@@ -25,13 +25,15 @@ class AddCars extends StatelessWidget {
         backgroundColor: Colors.transparent,
       ),
       body: SafeArea(
-        key: key ,
+        key: key,
         child: Column(
           children:  [ 
             Padding(
               padding: const EdgeInsets.all(8.0),
               child:carbrandselectvalues(
-                carsProvider: carprovider,
+                carprovider: carprovider,
+                
+                
               ),
             ),
            textfiled(labeltext: "Car name",controller:carprovider.CarName ),
@@ -42,7 +44,7 @@ class AddCars extends StatelessWidget {
             onPressed: ()
             {
               carprovider.addCar();
-              carprovider.Carmodel.clear();
+             
               carprovider.CarName.clear();
               carprovider.Carmodel.clear();
               carprovider.CarSpec.clear();

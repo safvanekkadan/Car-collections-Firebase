@@ -38,7 +38,7 @@ class UpdateUser extends StatelessWidget {
               child: CupertinoTextFormFieldRow(
                 
                 prefix:const Text("Select Car Brand"),
-                placeholder:items[carprovider.selectedValue],
+               placeholder:items[carprovider.selectedValue],
                   decoration: BoxDecoration(             
                     border: Border.all(color: Colors.grey),
                     borderRadius: BorderRadius.circular(8.0),

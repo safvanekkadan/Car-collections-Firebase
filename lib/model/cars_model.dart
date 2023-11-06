@@ -1,4 +1,4 @@
-class CarModel{
+class CarModel {
   String?id;
   String?carname;
   String?carbrand;

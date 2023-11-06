@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final provider= Provider.of<CarsProvider>(context);
     return Scaffold(
       appBar: AppBar(elevation: 0,
         centerTitle: true,
@@ -28,6 +29,10 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton:FloatingActionButton(
           onPressed: (){
+          provider.CarName.clear();
+          provider.Carmodel.clear();
+         // items[provider.selectedValue].clear();
+          provider.CarSpec.clear();
              Navigator.push(context, 
         MaterialPageRoute(builder: (context)=> const AddCars()));
           },
@@ -120,14 +125,37 @@ class HomeScreen extends StatelessWidget {
                    size: 30,
                    color: Colors.blue),  
                     ),
-                    CupertinoButton(
-                onPressed: () {
-                  provider.deletecar(cars.id.toString());
-                },
-                child: const Icon(CupertinoIcons.delete,
-                size: 30,
-                color: Colors.redAccent,),
-                ),
+                  CupertinoButton(
+  onPressed: () {
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: const Text('Delete Car'),
+          content: const Text('Are you sure you want to delete this car?'),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              onPressed: () {
+                provider.deletecar(cars.id.toString());
+                Navigator.of(context).pop(); 
+              },
+              isDestructiveAction: true,
+              child:  const Text('Delete'),
+            ),
+            CupertinoDialogAction(
+              onPressed: () {
+                Navigator.of(context).pop(); 
+              },
+              isDefaultAction: true,
+              child: const Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
+  },
+  child: const Icon(CupertinoIcons.delete, size: 30, color: Colors.redAccent),
+),
                ],
               )
              ]
@@ -143,3 +171,4 @@ class HomeScreen extends StatelessWidget {
 }
 
 
+//  provider.deletecar(cars.id.toString());
